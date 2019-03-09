@@ -1,0 +1,11 @@
+.classpath
+.project
+target
+.settings
+.git
+logs
+libs
+bin
+gen
+project.properties
+proguard-project.txt
