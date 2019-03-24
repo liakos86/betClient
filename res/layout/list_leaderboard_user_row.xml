@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    			android:orientation="horizontal"
+    			android:layout_width="fill_parent"
+    			android:baselineAligned="false"
+                android:background="@android:color/black"
+                android:layout_height="wrap_content" android:padding="8dp"
+                android:minHeight="54dp"
+        >
+        
+    
+    <Button 
+         android:id="@+id/row_buy_prediction"
+        android:layout_width="64sp"
+        android:layout_height="64sp"
+        android:text="collect bounty"
+        android:onClick="placeBet"
+        />
+        
+    
+     <TextView android:textSize="14sp" android:id="@+id/row_user_name"
+              android:textColor="@android:color/black" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+     <TextView android:textSize="12sp" android:id="@+id/row_user_score" 
+              android:textColor="@android:color/black" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+	
+	
+	
+     
+
+   
+</LinearLayout>

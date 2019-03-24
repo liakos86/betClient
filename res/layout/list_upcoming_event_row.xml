@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    			android:layout_width="fill_parent"
+    			android:baselineAligned="false"
                 android:background="@android:color/black"
                 android:layout_height="wrap_content" android:padding="8dp"
                 android:minHeight="54dp"
         >
-    <TextView android:textSize="12sp" android:id="@+id/team1"
+        
+    <RelativeLayout android:id="@+id/home_team_pick" android:layout_width="0dp" android:layout_weight="1" android:layout_height="54dp" >
+    
+     <CheckBox android:gravity="center" android:id="@+id/home_team_name"
+                      android:background="@drawable/checkbox_selector"
+                      android:textColor="@android:color/white" 
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent" 
+                      android:textSize="12sp"
+                     />
+        
+    
+   <!--   <TextView android:textSize="14sp" android:id="@+id/home_team_name"
+              android:textColor="@android:color/black" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+     <TextView android:textSize="12sp" android:id="@+id/home_team_odd" android:layout_below="@id/home_team_name"
+              android:textColor="@android:color/black" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+	-->
+	
+	</RelativeLayout>
+	
+      <RelativeLayout android:id="@+id/draw_pick" android:layout_width="0dp" android:layout_weight="1" android:layout_height="54dp">
+   
+          
+           <CheckBox android:gravity="center" android:id="@+id/draw_name"
+                      android:background="@drawable/checkbox_selector"
+                      android:textColor="@android:color/white" 
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent" 
+                      android:textSize="12sp"
+                     />
+          
+          
+     <!--       <TextView android:textSize="14sp" android:id="@+id/draw_name"
               android:textColor="@android:color/white" android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
+     <TextView android:textSize="12sp" android:id="@+id/draw_odd" android:layout_below="@id/draw_name"
+              android:textColor="@android:color/white" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+	-->
+	
+	</RelativeLayout>
+	
+    <RelativeLayout android:id="@+id/away_team_pick" android:layout_width="0dp" android:layout_weight="1" android:layout_height="54dp" android:background="@android:color/holo_orange_light">
+    
+     <CheckBox android:gravity="center" android:id="@+id/away_team_name"
+                      android:background="@drawable/checkbox_selector"
+                      android:textColor="@android:color/white" 
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent" 
+                      android:textSize="12sp"
+                     />
+    
+  <!--   <TextView android:textSize="14sp" android:id="@+id/away_team_name"
+              android:textColor="@android:color/black" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+     <TextView android:textSize="12sp" android:id="@+id/away_team_odd" android:layout_below="@id/away_team_name"
+              android:textColor="@android:color/black" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+	 -->
+	 
+	 </RelativeLayout>
 
-    <TextView android:textSize="10sp" android:layout_below="@+id/team1"
-              android:id="@+id/team2" android:textColor="@android:color/white"
-              android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-
-
-</RelativeLayout>
+   
+</LinearLayout>

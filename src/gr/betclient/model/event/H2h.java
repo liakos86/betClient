@@ -1,4 +1,4 @@
-package gr.betclient.model;
+package gr.betclient.model.event;
 
 public class H2h {
 	

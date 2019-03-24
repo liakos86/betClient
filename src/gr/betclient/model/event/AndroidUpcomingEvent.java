@@ -1,4 +1,4 @@
-package gr.betclient.model;
+package gr.betclient.model.event;
 
 import java.util.List;
 

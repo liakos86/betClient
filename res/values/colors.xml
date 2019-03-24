@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="interval_green">#2ecc71</color>
+    <color name="interval_green_pressed">#27ae60</color>
+    <color name="interval_red">#c0392b</color>
+    <color name="interval_red_pressed">#e74c3c</color>
+</resources>
