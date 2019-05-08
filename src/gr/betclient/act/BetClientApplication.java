@@ -1,30 +1,103 @@
 package gr.betclient.act;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import gr.betclient.async.AsyncGetCountriesWithCompetitions;
+import gr.betclient.async.AsyncGetUser;
+import gr.betclient.async.AsyncHolder;
+import gr.betclient.async.AsyncUserHolder;
 import gr.betclient.data.AppConstants;
+import gr.betclient.model.event.Event;
+import gr.betclient.model.user.User;
+import gr.betclient.model.user.UserBet;
+import gr.betclient.model.user.UserPrediction;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class BetClientApplication
-extends Application{
+extends Application
+implements AsyncUserHolder {
 	
+	private User user;
 	
+	private List<UserBet> bets = new ArrayList<UserBet>();
 	
+	private Map<String, Event> allEventsMap = new HashMap<String, Event>();
 	
-	  @Override
-	    public void onCreate() {
-	        super.onCreate();
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		
+		
+		
+//		final SharedPreferences app_preferences = getSharedPreferences(AppConstants.PREFS_NAME, Context.MODE_PRIVATE);
+//		SharedPreferences.Editor editor = app_preferences.edit();
+//        editor.putString(AppConstants.PREFS_USER, null);
+//        editor.apply();
+		
+		
+		
+		final SharedPreferences app_preferences = getSharedPreferences(AppConstants.PREFS_NAME, Context.MODE_PRIVATE);
+		String userString = app_preferences.getString(AppConstants.PREFS_USER, null);
+		if (userString == null) {
+			user = null;
+			return;
+		}
 
-	        SharedPreferences app_preferences = getSharedPreferences(AppConstants.PREFS_NAME, Context.MODE_PRIVATE);
-	        
-	        
-	        if (app_preferences.getString(AppConstants.USER_IN_PREFS, null) == null) {
-//	            SharedPreferences.Editor editor = app_preferences.edit();
-//	            editor.putString(USER_IN_PREFS, "STARTED");
-//	            editor.putString(USER_IN_PREFS, "STOPPED");
-//	            editor.apply();
+		user = new Gson().fromJson(userString, new TypeToken<User>() {}.getType());
+		for (UserBet bet : user.getUserBets()){
+			bets.add(bet);
+		}
+		
+		final AsyncUserHolder holder = this;
+    	TimerTask task = new TimerTask() {
+	        public void run() {
+	        	new AsyncGetUser(holder, user).execute();
 	        }
+	    };
+	    Timer timer = new Timer("Timer");
+	    timer.scheduleAtFixedRate(task, 10, AppConstants.UPDATE_EVENTS_INTERVAL);
+		
+	}
 
-	    }
+	public User getUser() {
+		return user;
+	}
+	
+	public List<UserBet> getBets() {
+		return bets;
+	}
+
+	public Map<String, Event> getAllEventsMap() {
+		return allEventsMap;
+	}
+
+	@Override
+	public void onAsyncGetUserFinished(User user) {
+		this.user = user;
+		for (UserBet userBet : user.getUserBets()) {
+			for (UserBet existingUserBet : new ArrayList<UserBet>(bets)){
+				if (userBet.getBetId().equals(existingUserBet.getBetId())){
+					UserBet.copyFields(userBet, existingUserBet);
+				}else{
+					bets.add(userBet);
+				}
+			}
+		}
+		
+		final SharedPreferences app_preferences = getSharedPreferences(AppConstants.PREFS_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = app_preferences.edit();
+        editor.putString(AppConstants.PREFS_USER, new Gson().toJson(user));
+        editor.apply();
+	}
 
 }

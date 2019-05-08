@@ -5,31 +5,37 @@
     			android:orientation="horizontal"
     			android:layout_width="fill_parent"
     			android:baselineAligned="false"
-                android:background="@android:color/black"
+                android:background="@color/white_back"
                 android:layout_height="wrap_content" android:padding="8dp"
-                android:minHeight="54dp"
+                android:minHeight="@dimen/standard_view_height"
         >
         
     
     <Button 
          android:id="@+id/row_buy_prediction"
-        android:layout_width="64sp"
+        android:layout_width="0dp"
         android:layout_height="64sp"
-        android:text="collect bounty"
+        android:text="buy"
         android:onClick="placeBet"
+        android:layout_weight="1"
         />
-        
     
      <TextView android:textSize="14sp" android:id="@+id/row_user_name"
-              android:textColor="@android:color/black" android:layout_width="wrap_content"
-              android:layout_height="wrap_content"/>
+              android:textColor="@android:color/black" 
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="3"/>
      <TextView android:textSize="12sp" android:id="@+id/row_user_score" 
-              android:textColor="@android:color/black" android:layout_width="wrap_content"
-              android:layout_height="wrap_content"/>
+              android:textColor="@android:color/black" 
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="3"/>
+      <TextView android:textSize="12sp" 
+          		android:id="@+id/row_user_percentage" 
+              android:textColor="@android:color/black" 
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="3"/>
 	
-	
-	
-     
-
    
 </LinearLayout>

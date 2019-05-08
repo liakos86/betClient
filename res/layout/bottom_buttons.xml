@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/bottomButtons"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" >
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:id="@+id/btn_all_events"
+                style="@style/BottomTab">
+            <ImageView
+                    android:src="@drawable/ic_launcher"
+                    style="@style/BottomTabImage"/>
+            <TextView
+                    android:text="games"
+                    style="@style/BottomTabText"/>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/btn_live_events"
+                style="@style/BottomTab">
+            <ImageView
+                    android:src="@drawable/ic_launcher"
+                    style="@style/BottomTabImage"/>
+            <TextView
+                    android:text="live"
+                    style="@style/BottomTabText"/>
+        </LinearLayout>
+
+         <LinearLayout
+                android:id="@+id/btn_upcoming_events"
+                style="@style/BottomTab">
+            <ImageView
+                    android:src="@drawable/ic_launcher"
+                    style="@style/BottomTabImage"/>
+            <TextView
+                    android:text="place bet"
+                    style="@style/BottomTabText"/>
+        </LinearLayout>
+        
+        <LinearLayout
+                android:id="@+id/btn_leader_board"
+                style="@style/BottomTab">
+            <ImageView
+                    android:src="@drawable/ic_launcher"
+                    style="@style/BottomTabImage"/>
+            <TextView
+                    android:text="leaderboard"
+                    style="@style/BottomTabText"/>
+        </LinearLayout>
+        
+        
+          <LinearLayout
+                android:id="@+id/btn_my_bets"
+                style="@style/BottomTab">
+            <ImageView
+                    android:src="@drawable/ic_launcher"
+                    style="@style/BottomTabImage"/>
+            <TextView
+                    android:text="my bets"
+                    style="@style/BottomTabText"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

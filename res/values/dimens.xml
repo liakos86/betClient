@@ -3,5 +3,25 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    
+     <dimen name="zero">0dp</dimen>
+    <dimen name="xxlarge_text">40sp</dimen>
+    <dimen name="xlarge_text">25sp</dimen>
+    <dimen name="large_text">20sp</dimen>
+    <dimen name="xmedium_text">18sp</dimen>
+    <dimen name="medium_text">15sp</dimen>
+    <dimen name="small_text">12sp</dimen>
+    <dimen name="xsmall_text">10sp</dimen>
+    <dimen name="xxsmall_text">8sp</dimen>
+    <dimen name="ten_device_pixels">10dp</dimen>
+    <dimen name="progressBarSize">150dp</dimen>
+    <dimen name="twenty">20dp</dimen>
+    <dimen name="eight">8dp</dimen>
+    <dimen name="four_dp">4dp</dimen>
+    <dimen name="standard_view_height">48dp</dimen>
+    <dimen name="map_icon_size">100dp</dimen>
+    <dimen name="list_view_height">64dp</dimen>
+    <dimen name="circular_button_size">70dp</dimen>
+    <dimen name="list_run_row">90dp</dimen>
 
 </resources>

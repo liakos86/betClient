@@ -1,12 +1,21 @@
 package gr.betclient.model.user;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * User of the application.
  * 
  * @author liakos
  *
  */
-public class User {
+public class User
+implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Unique id as defined by mongoDb during insert.
@@ -42,6 +51,19 @@ public class User {
 	 * Number of lost events.
 	 */
 	Integer lostEventsCount;
+	
+	/**
+	 * The list of open & closed {@link UserBet}s for the current instance.
+	 */
+	List<UserBet> userBets;
+	
+	public List<UserBet> getUserBets() {
+		return userBets;
+	}
+
+	public void setUserBets(List<UserBet> userBets) {
+		this.userBets = userBets;
+	}
 
 	public String getId() {
 		return id;

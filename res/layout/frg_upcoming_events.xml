@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+         android:layout_width="match_parent" 
+         android:layout_height="match_parent">
+         
+        
+        <ExpandableListView
+                    android:id="@+id/upComingEvents"
+                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    />
+        
+        
+        
+        <RelativeLayout
+         android:id="@+id/betSlipLayout"
+             android:visibility="gone"
+         android:layout_width="match_parent" 
+         android:layout_height="0dp"
+         android:layout_weight="1">
+         
+        
+            
+             <ListView 
+                  android:id="@+id/betSlipPredictions"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentTop="true"
+                 />
+             
+          <!--    <LinearLayout
+                 android:id="@+id/noUse1"
+                    android:layout_height="@dimen/standard_view_height"
+                    android:layout_width="match_parent">
+                    
+                 
+                 <TextView android:layout_width="@dimen/twenty" android:layout_height="@dimen/twenty" android:id="@+id/textViewPossibleEarnings"/>
+                 
+                 <EditText
+            android:id="@+id/editTextBetAmount"
+            android:textColorHint="@android:color/darker_gray"
+            android:hint="bet"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/small_text"
+            android:textColor="@color/primary_grey"
+            android:background="@drawable/edit_text_back"
+            android:paddingLeft="@dimen/eight"
+            android:paddingRight="@dimen/eight"
+            android:layout_width="@dimen/twenty"
+            android:layout_height="@dimen/standard_view_height"
+            android:layout_marginBottom="@dimen/four_dp"
+            />
+                 
+             </LinearLayout> -->
+            
+            <Button
+               android:id="@+id/buttonPlaceBet" 
+            android:layout_marginBottom="@dimen/ten_device_pixels"
+            android:background="@drawable/close_button_selector"
+            android:layout_height="@dimen/standard_view_height"
+            android:maxHeight="@dimen/standard_view_height"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:text="bet"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/betSlipPredictions"
+                style="@style/buttonStyle"/>
+           
+
+    </RelativeLayout>
+        
+
+         
+    </LinearLayout>
+

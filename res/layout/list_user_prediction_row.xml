@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/white_back" >
+    
+    
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/standard_view_height"
+        android:orientation="horizontal" 
+        android:layout_weight="4">
+
+        <TextView
+            android:id="@+id/prediction_home_team_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/prediction_home_team_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/standard_view_height"
+        android:orientation="horizontal"
+        android:layout_weight="4" >
+
+        <TextView
+            android:id="@+id/prediction_away_team_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/prediction_away_team_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
+    </LinearLayout>
+    
+    <TextView
+            android:id="@+id/prediction_event_current_minute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textColor="@color/interval_green"
+            android:textSize="12sp" />
+    
+     <TextView
+            android:id="@+id/prediction_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textColor="@color/interval_green"
+            android:textSize="12sp" />
+    
+
+</LinearLayout>

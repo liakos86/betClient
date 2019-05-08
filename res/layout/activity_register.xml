@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:padding="@dimen/ten_device_pixels"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView android:text="username"
+              android:maxLines="1"
+              android:singleLine="true"
+              android:layout_above="@+id/editTextUsername"
+              android:layout_centerHorizontal="true"
+              android:layout_marginBottom="@dimen/eight"
+              android:textSize="@dimen/small_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/editTextUsername"
+            android:textColorHint="@android:color/darker_gray"
+            android:hint="how would like us to call you?"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/medium_text"
+            android:textColor="@color/primary_grey"
+            android:background="@drawable/edit_text_back"
+            android:paddingLeft="@dimen/eight"
+            android:paddingRight="@dimen/eight"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_view_height"
+            android:layout_marginBottom="@dimen/four_dp"
+            />
+
+  
+    <Button
+            android:id="@+id/buttonSaveUser"
+            android:layout_below="@+id/editTextUsername"
+            android:paddingLeft="@dimen/eight"
+            android:paddingRight="@dimen/eight"
+            style="@style/buttonStyle"
+            android:background="@drawable/close_button_selector"
+            android:layout_alignParentBottom="false"
+            android:layout_marginBottom="@dimen/ten_device_pixels"
+            android:text="register"/>
+
+
+ 
+
+</RelativeLayout>

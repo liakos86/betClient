@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">betClient</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Bounty Bet</string>
     <string name="action_settings">Settings</string>
+    <string name="api_google_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxlymFE9TdXi1fle8qyeNp8LB6UUgBNnFUM3pBhVuxNNDZBhcSi/iQ2efKg8H+aIju0dx2M+Jyr27Hw6FXYUN3RT+noI9eP+ByytjS43+HpAYuBL/GmWNllLxjudAbaQCJVI8PSX38u19FypRsAAc10ShGFvv1Ensu8adLxUNMjifw/H8Kl58FVgSnq5RmxsuvZKHz2q+wV908kiYyJv5oLfct+keUXTHcVEZkwgj0/ZdDifjCyu7T2bxiBTKY89xDxv4aSuj5pY+YJTKteFw8TcWzOYyZAaICpa/GaTcxcsEM11atA/h6cNa/7VLPUNGof5QaX7F3VrKGlb8nyB09wIDAQAB</string>
 
 </resources>
