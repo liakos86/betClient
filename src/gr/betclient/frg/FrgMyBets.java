@@ -5,9 +5,7 @@ import gr.betclient.act.ActRegisterUser;
 import gr.betclient.act.BetClientApplication;
 import gr.betclient.adapter.UserBetsExpandableAdapterItem;
 import gr.betclient.data.AppConstants;
-import gr.betclient.model.event.Event;
 import gr.betclient.model.user.UserBet;
-import gr.betclient.model.user.UserPrediction;
 
 import java.util.List;
 
@@ -96,4 +94,5 @@ public class FrgMyBets extends Fragment {
 			userBetsExpListView.expandGroup(i);
 		}
 	}
+
 }

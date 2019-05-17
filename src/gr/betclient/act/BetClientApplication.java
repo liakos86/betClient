@@ -1,5 +1,12 @@
 package gr.betclient.act;
 
+import gr.betclient.async.AsyncGetUser;
+import gr.betclient.async.AsyncUserHolder;
+import gr.betclient.data.AppConstants;
+import gr.betclient.model.event.Event;
+import gr.betclient.model.user.User;
+import gr.betclient.model.user.UserBet;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,21 +14,12 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import gr.betclient.async.AsyncGetCountriesWithCompetitions;
-import gr.betclient.async.AsyncGetUser;
-import gr.betclient.async.AsyncHolder;
-import gr.betclient.async.AsyncUserHolder;
-import gr.betclient.data.AppConstants;
-import gr.betclient.model.event.Event;
-import gr.betclient.model.user.User;
-import gr.betclient.model.user.UserBet;
-import gr.betclient.model.user.UserPrediction;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class BetClientApplication
 extends Application
@@ -85,12 +83,17 @@ implements AsyncUserHolder {
 	public void onAsyncGetUserFinished(User user) {
 		this.user = user;
 		for (UserBet userBet : user.getUserBets()) {
+			boolean betExists = false;
 			for (UserBet existingUserBet : new ArrayList<UserBet>(bets)){
-				if (userBet.getBetId().equals(existingUserBet.getBetId())){
+				if (userBet.getMongoId().equals(existingUserBet.getMongoId())){
 					UserBet.copyFields(userBet, existingUserBet);
-				}else{
-					bets.add(userBet);
+					betExists = true;
+					break;
 				}
+			}
+			
+			if (!betExists){
+				bets.add(userBet);
 			}
 		}
 		

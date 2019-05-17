@@ -1,18 +1,25 @@
 package gr.betclient.frg;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gr.betclient.R;
 import gr.betclient.act.ActParent;
 import gr.betclient.act.BetClientApplication;
 import gr.betclient.adapter.CompetitionsUpcomingExpandableAdapterItem;
 import gr.betclient.adapter.UserPredictionsListViewAdapterItem;
 import gr.betclient.async.AsyncPlaceBet;
+import gr.betclient.data.AppConstants;
 import gr.betclient.model.event.Competition;
 import gr.betclient.model.event.Event;
+import gr.betclient.model.user.User;
 import gr.betclient.model.user.UserBet;
 import gr.betclient.model.user.UserPrediction;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,11 +27,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * Fragment that contains all the {@link Competition}s which have at least one {@link Event},
@@ -57,6 +65,13 @@ public class FrgUpcomingEvents extends Fragment {
     
     UserBet userBet = new UserBet();
     
+    /**
+     * After user has placed a bet we need to uncheck every checkbox.
+     */
+    Set<CheckBox> checkedBoxes = new HashSet<CheckBox>();
+    
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,17 +103,11 @@ public class FrgUpcomingEvents extends Fragment {
 			});
 	        
 	        betSlipLayout = (RelativeLayout)v.findViewById(R.id.betSlipLayout);
-	        
-//	        betSlipLayout = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.layout_bet_slip, null);
-			//competitionsListView.addFooterView(betSlipLayout);
-	        
 	        buttonPlaceBet = (Button) betSlipLayout.findViewById(R.id.buttonPlaceBet);
 	        buttonPlaceBet.setOnClickListener(new OnClickListener() {
-				
 				@Override
 				public void onClick(View v) {
 					placeBet();
-					
 				}
 			});
 	        
@@ -107,24 +116,72 @@ public class FrgUpcomingEvents extends Fragment {
 	        userPredictionsListView.setAdapter(userPredictionsListViewAdapterItem);
 	        
     }
-   
+   /**
+    * Places a {@link UserBet} asynchronously.
+    * Then it adds the new bet in the {@link User#getUserBets()} in order to appear in the bets frg.
+    */
     void placeBet() {
+    	
+    	if (userBet.getPredictions().size() == 0){
+    		return;
+    	}
+    	
+    	Set<String> selectedEvents = new HashSet<String>();
+    	for(UserPrediction prediction : userBet.getPredictions()){
+    		if (selectedEvents.contains(prediction.getEventId())){
+    			Toast.makeText(getActivity(), "You can only selected one event peodiction", Toast.LENGTH_LONG).show();
+    			return;
+    		}
+    		selectedEvents.add(prediction.getEventId());
+    	}
+    	
+    	SimpleDateFormat df = new SimpleDateFormat(AppConstants.EVENT_DATE_FORMAT);
 		userBet.setBetAmount(50);
-		userBet.setUserId(((BetClientApplication)getActivity().getApplication()).getUser().getId());
+		userBet.setBetPlaceDate(df.format(new Date()));
+		userBet.setMongoUserId(((BetClientApplication)getActivity().getApplication()).getUser().getMongoId());
+		userBet.setBetStatus("open");
 		new AsyncPlaceBet(userBet, (ActParent)this.getActivity()).execute();
 		
-		userBet = UserBet.clear(userBet);
 		
 	}
     
-    public void addPrediction(UserPrediction prediction){
-    	
+    /**
+     * Adds a {@link UserPrediction} to the {@link UserBet}.
+     * In case the same prediction exists already for the same {@link Event}, nothing is performed.
+     * 
+     * @param prediction
+     */
+    public void addPrediction(UserPrediction prediction, CheckBox checkBoxToAdd){
+    	for (UserPrediction existingPrediction : new ArrayList<UserPrediction>(userBet.getPredictions())){
+    		if (existingPrediction.getEventId().equals(prediction.getEventId()) && existingPrediction.getPrediction().equals(prediction.getPrediction())){
+    			return;
+    		}
+    	}
     	betSlipLayout.setVisibility(View.VISIBLE);
     	userBet.getPredictions().add(prediction);
-    	
     	userPredictionsListViewAdapterItem.notifyDataSetChanged();
+    	checkedBoxes.add(checkBoxToAdd);
 	}
 	
+    public void removePrediction(UserPrediction prediction, CheckBox checkBoxToRemove) {
+    	
+    	if (userBet.getPredictions().size() == 0){//will be called by side effect when checkboxes are unchecked
+    		return;
+    	}
+    	
+    	for (UserPrediction existingPrediction : new ArrayList<UserPrediction>(userBet.getPredictions())){
+    		if (existingPrediction.getEventId().equals(prediction.getEventId()) && existingPrediction.getPrediction().equals(prediction.getPrediction())){
+    			userBet.getPredictions().remove(existingPrediction);
+    		}
+    	}
+    	
+    	userPredictionsListViewAdapterItem.notifyDataSetChanged();
+    	if (userBet.getPredictions().size() ==0){
+    		betSlipLayout.setVisibility(View.GONE);
+    	}
+    	
+    	checkedBoxes.remove(checkBoxToRemove);
+    }
 
 	public static FrgUpcomingEvents init(int val) {
         FrgUpcomingEvents truitonList = new FrgUpcomingEvents();
@@ -149,19 +206,15 @@ public class FrgUpcomingEvents extends Fragment {
 			competitionsListView.expandGroup(i);
 		}
 	}
-
-	public void removePrediction(UserPrediction prediction) {
-
-		for (UserPrediction existingPrediction : new ArrayList<UserPrediction>(userBet.getPredictions())){
-			if (existingPrediction.getEventId().equals(prediction.getEventId()) && existingPrediction.getPrediction().equals(prediction.getPrediction())){
-				userBet.getPredictions().remove(existingPrediction);
-			}
+	
+	public void clearPredictions() {
+		userBet = UserBet.clear(userBet);	
+		for (CheckBox checkBox : checkedBoxes) {
+			checkBox.setChecked(false);
 		}
-		
-    	
-    	userPredictionsListViewAdapterItem.notifyDataSetChanged();
-		if (userBet.getPredictions().size() ==0){
-			betSlipLayout.setVisibility(View.GONE);
-		}
+		checkedBoxes.clear();
+		userPredictionsListViewAdapterItem.notifyDataSetChanged();
+
 	}
+
 }

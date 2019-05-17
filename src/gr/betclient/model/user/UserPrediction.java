@@ -15,16 +15,24 @@ public class UserPrediction implements Serializable {
 	
 	String result;
 	
-	Double multiplier;
+	Double oddValue;
 	
+	String predictionDescription;
 	
-	
-	public Double getMultiplier() {
-		return multiplier;
+	public String getPredictionDescription() {
+		return predictionDescription;
 	}
 
-	public void setMultiplier(Double multiplier) {
-		this.multiplier = multiplier;
+	public void setPredictionDescription(String predictionDescription) {
+		this.predictionDescription = predictionDescription;
+	}
+
+	public Double getOddValue() {
+		return oddValue;
+	}
+
+	public void setOddValue(Double oddValue) {
+		this.oddValue = oddValue;
 	}
 
 	public String getEventId() {
@@ -51,7 +59,7 @@ public class UserPrediction implements Serializable {
 	}
 
 	public static void copyFields(UserPrediction sourcePrediction, UserPrediction destinationPrediction) {
-		destinationPrediction.setMultiplier(sourcePrediction.getMultiplier());
+		destinationPrediction.setOddValue(sourcePrediction.getOddValue());
 		destinationPrediction.setPrediction(sourcePrediction.getPrediction());
 		destinationPrediction.setResult(sourcePrediction.getResult());
 	}

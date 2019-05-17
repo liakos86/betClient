@@ -2,6 +2,7 @@ package gr.betclient.adapter;
 
 import gr.betclient.R;
 import gr.betclient.act.ActParent;
+import gr.betclient.act.BetClientApplication;
 import gr.betclient.adapter.viewholder.LeaderboardUserRowViewHolder;
 import gr.betclient.model.user.User;
 
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class LeaderBoardUserAdapterItem 
@@ -43,8 +44,8 @@ extends ArrayAdapter<User> {
                     .findViewById(R.id.row_user_name));
             holder.setTextUserScore((TextView) convertView
                     .findViewById(R.id.row_user_score));
-            holder.setButtonBuyPrediction((Button) convertView
-                    .findViewById(R.id.row_buy_prediction));
+            holder.setButtonBuyPrediction((ImageButton) convertView
+                    .findViewById(R.id.button_buy_prediction));
             holder.setTextUserPercentage((TextView) convertView
                     .findViewById(R.id.row_user_percentage));
       
@@ -70,6 +71,12 @@ extends ArrayAdapter<User> {
 				((ActParent)act).confirmInAppPurchase(currentUser);
 			}
 		});
+        
+        
+        String userId = ((BetClientApplication)act.getApplication()).getUser().getMongoId();
+        if (userId.equals(currentUser.getMongoId())){
+        	holder.getButtonBuyPrediction().setVisibility(View.INVISIBLE);
+        }
         
         return convertView;
     }

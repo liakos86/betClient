@@ -6,7 +6,6 @@ import gr.betclient.model.user.User;
 import gr.betclient.util.HttpHelper;
 
 import java.io.IOException;
-import java.util.List;
 
 import android.os.AsyncTask;
 
@@ -28,7 +27,7 @@ public class AsyncGetUser extends AsyncTask<Void, Void, User> {
     protected User doInBackground(Void... unused) {
         String userString = null;
         try {
-            userString = new HttpHelper().fetchGetContent(UrlConstants.GET_USER.replace(AppConstants.USER_ID, user.getId()));
+            userString = new HttpHelper().fetchGetContent(UrlConstants.GET_USER.replace(AppConstants.USER_ID, user.getMongoId()));
         }catch(IOException ioe){
             ioe.printStackTrace();
         }

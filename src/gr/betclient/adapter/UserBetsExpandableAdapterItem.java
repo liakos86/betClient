@@ -1,10 +1,8 @@
 package gr.betclient.adapter;
 
 import gr.betclient.R;
-import gr.betclient.act.BetClientApplication;
 import gr.betclient.adapter.viewholder.UserBetViewHolder;
 import gr.betclient.adapter.viewholder.UserPredictionViewHolder;
-import gr.betclient.model.event.Event;
 import gr.betclient.model.user.UserBet;
 import gr.betclient.model.user.UserPrediction;
 
@@ -37,11 +35,8 @@ public class UserBetsExpandableAdapterItem extends BaseExpandableListAdapter {
         if (convertView == null || !(convertView.getTag() instanceof UserPredictionViewHolder)) {
             convertView = inflater.inflate(R.layout.list_user_prediction_row, parent, false);
             holder = new UserPredictionViewHolder();
-            holder.setHomeTeamName((TextView) convertView.findViewById(R.id.prediction_home_team_name));
-            holder.setHomeTeamScore((TextView) convertView.findViewById(R.id.prediction_home_team_score));
-            holder.setAwayTeamName((TextView) convertView.findViewById(R.id.prediction_away_team_name));
-            holder.setAwayTeamScore((TextView) convertView.findViewById(R.id.prediction_away_team_score));
-            holder.setPrediction((TextView) convertView.findViewById(R.id.prediction_user));
+            holder.setPredictionDescription(((TextView) convertView.findViewById(R.id.prediction_description)));
+            holder.setPredictionSelection(((TextView) convertView.findViewById(R.id.prediction_selection)));
             holder.setEventCurrentMinute((TextView) convertView.findViewById(R.id.prediction_event_current_minute));
             convertView.setTag(holder);
         } else {
@@ -49,10 +44,8 @@ public class UserBetsExpandableAdapterItem extends BaseExpandableListAdapter {
         }
 
         UserPrediction prediction = childEvents.get(childPosition);
-        Event relatedEvent = ((BetClientApplication)activity.getApplication()).getAllEventsMap().get(prediction.getEventId());
-        holder.getHomeTeamName().setText(relatedEvent.getMatchHometeamName());
-        holder.getAwayTeamName().setText(relatedEvent.getMatchAwayteamName());
-        holder.getPrediction().setText(prediction.getPrediction());
+        holder.getPredictionDescription().setText(prediction.getPredictionDescription());
+        holder.getPredictionSelection().setText(prediction.getPrediction() + "@" +prediction.getOddValue());
         return convertView;
     }
 
@@ -63,7 +56,6 @@ public class UserBetsExpandableAdapterItem extends BaseExpandableListAdapter {
             convertView = activity.getLayoutInflater().inflate(R.layout.list_group_user_bet_row, parent, false);
             holder = new UserBetViewHolder();
             holder.setBetStatus((TextView) convertView.findViewById(R.id.betStatus));
-            holder.setBetPlaceDate((TextView) convertView.findViewById(R.id.betPlaceDate));
             holder.setBetPossibleEarnings((TextView) convertView.findViewById(R.id.betPossibleEarnings));
             convertView.setTag(holder);
         } else {
@@ -71,14 +63,9 @@ public class UserBetsExpandableAdapterItem extends BaseExpandableListAdapter {
 
         }
         UserBet current = parentItems.get(groupPosition);
-        Double possibleEarings = current.getBetAmount().doubleValue();
-        for (UserPrediction userPrediction : current.getPredictions()) {
-			possibleEarings *= userPrediction.getMultiplier();
-		}
-        
-        holder.getBetStatus().setText(current.getBetStatus());
-        holder.getBetPlaceDate().setText(current.getBetAmount().toString());
-        holder.getBetPossibleEarnings().setText(possibleEarings.toString());
+        Double possibleEarnings = current.getPossibleEarnings();
+        holder.getBetStatus().setText(current.getBetStatus() +" placed on "+current.getBetPlaceDate());
+        holder.getBetPossibleEarnings().setText(possibleEarnings.toString());
     
         return convertView;
     }

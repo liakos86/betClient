@@ -292,7 +292,13 @@ implements AsyncHolder{
 
 	@Override
 	public void onAsyncPlaceBetFinished(UserBet userBet) {
-		Toast.makeText(this, userBet.getUserId(), Toast.LENGTH_LONG).show();
+		FrgUpcomingEvents frgUpcomingEvents = (FrgUpcomingEvents)((BottomPagerAdapter) mPager.getAdapter()).getItem(2);
+		frgUpcomingEvents.clearPredictions();
+		
+		((BetClientApplication)getApplication()).getUser().getUserBets().add(userBet);
+		FrgMyBets frgMyBets = (FrgMyBets)((BottomPagerAdapter) mPager.getAdapter()).getItem(4);
+		frgMyBets.updateUserBets();
+		Toast.makeText(this, userBet.getMongoUserId(), Toast.LENGTH_LONG).show();
 	}
 
     

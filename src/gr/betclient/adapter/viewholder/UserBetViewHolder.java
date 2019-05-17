@@ -6,19 +6,9 @@ public class UserBetViewHolder {
 	
     private TextView betStatus;
     
-    private TextView betPlaceDate;
-    
     private TextView betAmount;
     
     private TextView betPossibleEarnings;
-
-	public TextView getBetPlaceDate() {
-		return betPlaceDate;
-	}
-
-	public void setBetPlaceDate(TextView betPlaceDate) {
-		this.betPlaceDate = betPlaceDate;
-	}
 
 	public TextView getBetAmount() {
 		return betAmount;

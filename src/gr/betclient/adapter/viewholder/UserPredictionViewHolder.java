@@ -2,28 +2,26 @@ package gr.betclient.adapter.viewholder;
 
 import android.widget.TextView;
 
-public class UserPredictionViewHolder extends LiveEventViewHolder {
+public class UserPredictionViewHolder extends LiveEventViewHolder{
 	
-    private TextView predictionStatus;
+    private TextView predictionDescription;
     
-    private TextView prediction;
-    
-    
+    private TextView predictionSelection;
 
-	public TextView getPrediction() {
-		return prediction;
+	public TextView getPredictionSelection() {
+		return predictionSelection;
 	}
 
-	public void setPrediction(TextView prediction) {
-		this.prediction = prediction;
+	public void setPredictionSelection(TextView predictionSelection) {
+		this.predictionSelection = predictionSelection;
 	}
 
-	public TextView getPredictionStatus() {
-		return predictionStatus;
+	public TextView getPredictionDescription() {
+		return predictionDescription;
 	}
 
-	public void setPredictionStatus(TextView predictionStatus) {
-		this.predictionStatus = predictionStatus;
+	public void setPredictionDescription(TextView predictionDescription) {
+		this.predictionDescription = predictionDescription;
 	}
 	
 }

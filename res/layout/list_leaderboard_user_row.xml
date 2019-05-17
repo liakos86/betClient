@@ -11,11 +11,12 @@
         >
         
     
-    <Button 
-         android:id="@+id/row_buy_prediction"
+    <ImageButton
+        android:contentDescription="@string/app_name"
+         android:id="@+id/button_buy_prediction"
         android:layout_width="0dp"
-        android:layout_height="64sp"
-        android:text="buy"
+        android:layout_height="@dimen/standard_view_height"
+		android:src="@drawable/bounty"
         android:onClick="placeBet"
         android:layout_weight="1"
         />

@@ -20,7 +20,7 @@ implements Serializable{
 	/**
 	 * Unique id as defined by mongoDb during insert.
 	 */
-	String id;
+	String mongoId;
 	
 	/**
 	 * The unique username that the app user will demand.
@@ -65,16 +65,26 @@ implements Serializable{
 		this.userBets = userBets;
 	}
 
-	public String getId() {
-		return id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
+	
 	public String getUsername() {
 		return username;
+	}
+
+	public String getMongoId() {
+		return mongoId;
+	}
+
+	public void setMongoId(String mongoId) {
+		this.mongoId = mongoId;
 	}
 
 	public void setUsername(String username) {

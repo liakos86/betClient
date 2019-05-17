@@ -1,14 +1,8 @@
 package gr.betclient.frg;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import gr.betclient.R;
 import gr.betclient.act.ActParent;
-import gr.betclient.adapter.CompetitionAdapterItem;
 import gr.betclient.adapter.CompetitionsExpandableAdapterItem;
-import gr.betclient.model.enums.EventStatus;
 import gr.betclient.model.event.Competition;
 import gr.betclient.model.event.Event;
 import android.os.Bundle;
@@ -17,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 
 /**
  * Fragment that contains all the {@link Competition}s which have at least one {@link Event},

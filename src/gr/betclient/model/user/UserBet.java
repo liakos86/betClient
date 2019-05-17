@@ -19,23 +19,36 @@ public class UserBet implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	String betId;
+	String mongoId;
 	
-	String userId;
+	String mongoUserId;
 	
 	String betStatus;
 	
 	Integer betAmount;
 	
+	String betPlaceDate;
+	
 	List<UserPrediction> predictions = new ArrayList<UserPrediction>();
 	
-	public String getBetId() {
-		return betId;
+	
+	public String getBetPlaceDate() {
+		return betPlaceDate;
 	}
 
-	public void setBetId(String betId) {
-		this.betId = betId;
+	public void setBetPlaceDate(String betPlaceDate) {
+		this.betPlaceDate = betPlaceDate;
 	}
+
+//	public String getBetId() {
+//		return betId;
+//	}
+//
+//	public void setBetId(String betId) {
+//		this.betId = betId;
+//	}
+	
+	
 
 	public List<UserPrediction> getPredictions() {
 		return predictions;
@@ -54,20 +67,28 @@ public class UserBet implements Serializable {
 	}
 
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	public String getBetStatus() {
 		return betStatus;
 	}
 
 	public void setBetStatus(String status) {
 		this.betStatus = status;
+	}
+	
+	public String getMongoId() {
+		return mongoId;
+	}
+
+	public void setMongoId(String mongoId) {
+		this.mongoId = mongoId;
+	}
+
+	public String getMongoUserId() {
+		return mongoUserId;
+	}
+
+	public void setMongoUserId(String mongoUserId) {
+		this.mongoUserId = mongoUserId;
 	}
 
 	public static void copyFields(UserBet source, UserBet destination) {
@@ -86,10 +107,18 @@ public class UserBet implements Serializable {
 
 	public static UserBet clear(UserBet userBet) {
 		userBet.setBetAmount(0);
-		userBet.setBetId(null);
+		userBet.setMongoId(null);
 		userBet.setBetStatus("open");
 		userBet.getPredictions().clear();
 		return userBet;
+	}
+
+	public Double getPossibleEarnings() {
+		 Double possibleEarnings = this.getBetAmount().doubleValue();
+	      for (UserPrediction userPrediction : this.getPredictions()) {
+			possibleEarnings *= userPrediction.getOddValue();
+		}
+	    return possibleEarnings;
 	}
 
 

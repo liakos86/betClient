@@ -1,13 +1,13 @@
 package gr.betclient.adapter.viewholder;
 
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class LeaderboardUserRowViewHolder {
     private TextView textUserName;
     private TextView textUserScore;
     private TextView textUserPercentage;
-    private Button  buttonBuyPrediction;
+    private ImageButton  buttonBuyPrediction;
 	public TextView getTextUserName() {
 		return textUserName;
 	}
@@ -20,10 +20,10 @@ public class LeaderboardUserRowViewHolder {
 	public void setTextUserScore(TextView textUserScore) {
 		this.textUserScore = textUserScore;
 	}
-	public Button getButtonBuyPrediction() {
+	public ImageButton getButtonBuyPrediction() {
 		return buttonBuyPrediction;
 	}
-	public void setButtonBuyPrediction(Button buttonBuyPrediction) {
+	public void setButtonBuyPrediction(ImageButton buttonBuyPrediction) {
 		this.buttonBuyPrediction = buttonBuyPrediction;
 	}
 	public TextView getTextUserPercentage() {

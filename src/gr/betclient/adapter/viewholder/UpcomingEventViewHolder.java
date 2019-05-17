@@ -1,38 +1,43 @@
 package gr.betclient.adapter.viewholder;
 
-import android.widget.RadioButton;
+import android.widget.CheckBox;
 
 public class UpcomingEventViewHolder {
 	
-	String selectedValue;
-	RadioButton radioHome;
-	RadioButton radioDraw;
-	RadioButton radioAway;
+	CheckBox checkHome;
+	CheckBox checkDraw;
+	CheckBox checkAway;
 	
 	
-	public String getSelectedValue() {
-		return selectedValue;
+	public CheckBox getCheckHome() {
+		return checkHome;
 	}
-	public void setSelectedValue(String selectedValue) {
-		this.selectedValue = selectedValue;
+	public void setCheckHome(CheckBox radioHome) {
+		this.checkHome = radioHome;
 	}
-	public RadioButton getRadioHome() {
-		return radioHome;
+	public CheckBox getCheckDraw() {
+		return checkDraw;
 	}
-	public void setRadioHome(RadioButton radioHome) {
-		this.radioHome = radioHome;
+	public void setCheckDraw(CheckBox radioDraw) {
+		this.checkDraw = radioDraw;
 	}
-	public RadioButton getRadioDraw() {
-		return radioDraw;
+	public CheckBox getCheckAway() {
+		return checkAway;
 	}
-	public void setRadioDraw(RadioButton radioDraw) {
-		this.radioDraw = radioDraw;
+	public void setCheckAway(CheckBox radioAway) {
+		this.checkAway = radioAway;
 	}
-	public RadioButton getRadioAway() {
-		return radioAway;
-	}
-	public void setRadioAway(RadioButton radioAway) {
-		this.radioAway = radioAway;
+	
+	public void clearOthers(int exceptForId){
+		if (checkAway.getId() != exceptForId){
+			checkAway.setChecked(false);
+		}
+		if (checkHome.getId() != exceptForId){
+			checkHome.setChecked(false);
+		}
+		if (checkDraw.getId() != exceptForId){
+			checkDraw.setChecked(false);
+		}
 	}
 	
 	

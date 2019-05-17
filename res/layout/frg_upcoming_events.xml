@@ -11,6 +11,7 @@
                     android:layout_height="0dp"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
+                    android:groupIndicator="@null"
                     />
         
         
@@ -29,6 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_alignParentTop="true"
+                    android:layout_above="@+id/buttonPlaceBet"
                  />
              
           <!--    <LinearLayout
@@ -58,16 +60,10 @@
              </LinearLayout> -->
             
             <Button
-               android:id="@+id/buttonPlaceBet" 
-            android:layout_marginBottom="@dimen/ten_device_pixels"
-            android:background="@drawable/close_button_selector"
-            android:layout_height="@dimen/standard_view_height"
-            android:maxHeight="@dimen/standard_view_height"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="bottom"
-                    android:text="bet"
-                    android:layout_alignParentBottom="true"
-                    android:layout_below="@+id/betSlipPredictions"
+                android:id="@+id/buttonPlaceBet" 
+            	android:layout_marginBottom="@dimen/ten_device_pixels"
+            	android:background="@drawable/close_button_selector"
+                android:text="bet"
                 style="@style/buttonStyle"/>
            
 

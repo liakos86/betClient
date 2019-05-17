@@ -1,20 +1,15 @@
 package gr.betclient.adapter;
 
 import gr.betclient.R;
-import gr.betclient.act.ActParent;
-import gr.betclient.adapter.viewholder.LeaderboardUserRowViewHolder;
 import gr.betclient.adapter.viewholder.UserPredictionViewHolder;
-import gr.betclient.model.user.User;
 import gr.betclient.model.user.UserPrediction;
 
 import java.util.List;
 
 import android.app.Activity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class UserPredictionsListViewAdapterItem 
@@ -41,28 +36,23 @@ extends ArrayAdapter<UserPrediction> {
 
             holder = new UserPredictionViewHolder();
 
-            holder.setHomeTeamName((TextView) convertView
-                    .findViewById(R.id.prediction_home_team_name));
-            holder.setAwayTeamName((TextView) convertView
-                    .findViewById(R.id.prediction_home_team_name));
-            holder.setPrediction((TextView) convertView
-                    .findViewById(R.id.prediction_user));
+            holder.setPredictionDescription((TextView) convertView
+                    .findViewById(R.id.prediction_selection));
+            holder.setPredictionSelection((TextView) convertView
+                    .findViewById(R.id.prediction_description));
             convertView.setTag(holder);
         } else {
             holder = (UserPredictionViewHolder) convertView.getTag();
 
         }
 
-        UserPrediction currentUser = data.get(position);
-
-        holder.getHomeTeamName().setText("team1   vs");
- 
-        holder.getAwayTeamName().setText(" team2");
-       
-        holder.getPrediction().setText(currentUser.getPrediction());
+        
+        UserPrediction currentPrediction = data.get(position);
+        holder.getPredictionDescription().setText(currentPrediction.getPredictionDescription());
+        holder.getPredictionSelection().setText(currentPrediction.getPrediction() + " @ "+ currentPrediction.getOddValue());
        
         return convertView;
     }
-    
+
 }
 
