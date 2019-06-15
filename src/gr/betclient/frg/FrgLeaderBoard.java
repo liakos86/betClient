@@ -1,7 +1,7 @@
 package gr.betclient.frg;
 
+import gr.betclient.ActParent;
 import gr.betclient.R;
-import gr.betclient.act.ActParent;
 import gr.betclient.adapter.LeaderBoardUserAdapterItem;
 import gr.betclient.model.user.User;
 import android.os.Bundle;

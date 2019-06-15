@@ -1,7 +1,7 @@
 package gr.betclient.frg;
 
+import gr.betclient.ActParent;
 import gr.betclient.R;
-import gr.betclient.act.ActParent;
 import gr.betclient.adapter.LiveEventAdapterItem;
 import gr.betclient.model.event.Event;
 import android.os.Bundle;

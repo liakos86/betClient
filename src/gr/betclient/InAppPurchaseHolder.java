@@ -1,4 +1,4 @@
-package gr.betclient.act;
+package gr.betclient;
 
 public interface InAppPurchaseHolder {
 	

@@ -1,13 +1,13 @@
 package gr.betclient.frg;
 
+import gr.betclient.ActParent;
+import gr.betclient.BetClientApplication;
 import gr.betclient.R;
-import gr.betclient.act.ActParent;
-import gr.betclient.act.BetClientApplication;
 import gr.betclient.adapter.CompetitionsUpcomingExpandableAdapterItem;
 import gr.betclient.adapter.UserPredictionsListViewAdapterItem;
 import gr.betclient.async.AsyncPlaceBet;
 import gr.betclient.data.AppConstants;
-import gr.betclient.model.event.Competition;
+import gr.betclient.model.event.League;
 import gr.betclient.model.event.Event;
 import gr.betclient.model.user.User;
 import gr.betclient.model.user.UserBet;
@@ -35,11 +35,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 /**
- * Fragment that contains all the {@link Competition}s which have at least one {@link Event},
+ * Fragment that contains all the {@link League}s which have at least one {@link Event},
  * that start later than the current time. This serves the purpose of betting on upcoming events
  * only.
  * 
- * TODO: when date is added as a parameter, only {@link Competition}s in the specific date will appear.
+ * TODO: when date is added as a parameter, only {@link League}s in the specific date will appear.
  */
 public class FrgUpcomingEvents extends Fragment {
 	
@@ -49,7 +49,7 @@ public class FrgUpcomingEvents extends Fragment {
  	ExpandableListView competitionsListView;
 
  	/**
- 	 * Customer adapter for {@link Competition}s
+ 	 * Customer adapter for {@link League}s
  	 */
     CompetitionsUpcomingExpandableAdapterItem competitionsListViewAdapter;
     

@@ -1,5 +1,6 @@
 package gr.betclient.async;
 
+import gr.betclient.model.user.User;
 import gr.betclient.model.user.UserBet;
 
 import java.io.Serializable;
@@ -12,5 +13,7 @@ public interface AsyncHolder {
 	void onAsyncLeaderboardFinished(List<? extends Serializable> objectList);
 	
 	void onAsyncPlaceBetFinished(UserBet userBet);
+	
+	void onAsyncCreateUserSuccess(User user);
 
 }

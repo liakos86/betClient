@@ -18,11 +18,12 @@ public class AsyncGetUser extends AsyncTask<Void, Void, User> {
 	
 	AsyncUserHolder asyncUserHolder;
 	
+	
 	public AsyncGetUser(AsyncUserHolder asyncUserHolder, User user) {
 		this.asyncUserHolder = asyncUserHolder;
 		this.user = user;
 	}
-
+	
     @Override
     protected User doInBackground(Void... unused) {
         String userString = null;

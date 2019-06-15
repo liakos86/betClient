@@ -1,9 +1,9 @@
 package gr.betclient.frg;
 
+import gr.betclient.ActParent;
 import gr.betclient.R;
-import gr.betclient.act.ActParent;
 import gr.betclient.adapter.CompetitionsExpandableAdapterItem;
-import gr.betclient.model.event.Competition;
+import gr.betclient.model.event.League;
 import gr.betclient.model.event.Event;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 /**
- * Fragment that contains all the {@link Competition}s which have at least one {@link Event},
+ * Fragment that contains all the {@link League}s which have at least one {@link Event},
  * as they are fetched from server. It does not matter if they are live or not, everything will
  * appear here. 
  * 
- * TODO: when date is added as a parameter, only {@link Competition}s in the specific date will appear.
+ * TODO: when date is added as a parameter, only {@link League}s in the specific date will appear.
  */
 public class FrgAllEvents extends Fragment {
 	
@@ -27,7 +27,7 @@ public class FrgAllEvents extends Fragment {
  	ExpandableListView competitionsListView;
 
  	/**
- 	 * Customer adapter for {@link Competition}s
+ 	 * Customer adapter for {@link League}s
  	 */
     CompetitionsExpandableAdapterItem competitionsListViewAdapter;
 

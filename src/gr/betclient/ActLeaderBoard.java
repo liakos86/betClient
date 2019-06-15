@@ -1,3 +1,4 @@
+package gr.betclient;
 //package gr.betclient.act;
 //
 //import gr.betclient.R;

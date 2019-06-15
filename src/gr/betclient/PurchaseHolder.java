@@ -1,4 +1,4 @@
-package gr.betclient.act;
+package gr.betclient;
 
 import gr.betclient.R;
 import android.app.Activity;

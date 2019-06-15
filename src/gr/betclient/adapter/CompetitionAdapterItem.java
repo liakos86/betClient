@@ -1,7 +1,7 @@
 package gr.betclient.adapter;
 
 import gr.betclient.R;
-import gr.betclient.model.event.Competition;
+import gr.betclient.model.event.League;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CompetitionAdapterItem extends ArrayAdapter<Competition> {
+public class CompetitionAdapterItem extends ArrayAdapter<League> {
 
     Context mContext;
     int layoutResourceId;
-    List<Competition> competitions;
+    List<League> competitions;
     Activity activity;
 
     public CompetitionAdapterItem(Activity activity, int layoutResourceId,
-                                     List<Competition> data) {
+                                     List<League> data) {
         super(activity.getApplicationContext(), layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.competitions = data;
@@ -43,7 +43,7 @@ public class CompetitionAdapterItem extends ArrayAdapter<Competition> {
 
         }
 
-        final Competition current = competitions.get(position);
+        final League current = competitions.get(position);
         holder.countryWithLeagueName.setText(current.getCountryName() +  ": "+current.getLeagueName());
         holder.numberOfEvents.setText("[" + current.getEvents().size() +"]");
     

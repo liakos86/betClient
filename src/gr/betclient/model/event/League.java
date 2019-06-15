@@ -3,15 +3,20 @@ package gr.betclient.model.event;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Competition {
+public class League implements Serializable {
 
-    @SerializedName("country_id")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@SerializedName("country_id")
     @Expose
     private String countryId;
     @SerializedName("country_name")
@@ -66,8 +71,8 @@ public class Competition {
 		this.events = events;
 	}
 	
-	public static Competition copyOf(Competition competition){
-		Competition newCompetition = new Competition();
+	public static League copyOf(League competition){
+		League newCompetition = new League();
 		newCompetition.setCountryId(competition.getCountryId());
 		newCompetition.setCountryName(competition.getCountryName());
 		newCompetition.setLeagueId(competition.getLeagueId());

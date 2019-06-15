@@ -1,8 +1,8 @@
 package gr.betclient.adapter;
 
+import gr.betclient.ActParent;
+import gr.betclient.BetClientApplication;
 import gr.betclient.R;
-import gr.betclient.act.ActParent;
-import gr.betclient.act.BetClientApplication;
 import gr.betclient.adapter.viewholder.LeaderboardUserRowViewHolder;
 import gr.betclient.model.user.User;
 
@@ -73,8 +73,13 @@ extends ArrayAdapter<User> {
 		});
         
         
-        String userId = ((BetClientApplication)act.getApplication()).getUser().getMongoId();
-        if (userId.equals(currentUser.getMongoId())){
+        User user = ((BetClientApplication)act.getApplication()).getUser();
+        if (user == null){
+        	return convertView;
+        }
+
+
+        if (user.getMongoId().equals(currentUser.getMongoId())){
         	holder.getButtonBuyPrediction().setVisibility(View.INVISIBLE);
         }
         

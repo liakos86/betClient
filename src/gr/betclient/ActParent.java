@@ -1,9 +1,8 @@
-package gr.betclient.act;
+package gr.betclient;
 
-import gr.betclient.R;
 import gr.betclient.adapter.BottomPagerAdapter;
-import gr.betclient.async.AsyncGetCountriesWithCompetitions;
 import gr.betclient.async.AsyncGetLeaderBoard;
+import gr.betclient.async.AsyncGetLeagues;
 import gr.betclient.async.AsyncHolder;
 import gr.betclient.data.AppConstants;
 import gr.betclient.frg.FrgAllEvents;
@@ -11,12 +10,12 @@ import gr.betclient.frg.FrgLeaderBoard;
 import gr.betclient.frg.FrgLiveEvents;
 import gr.betclient.frg.FrgMyBets;
 import gr.betclient.frg.FrgUpcomingEvents;
-import gr.betclient.model.event.Competition;
-import gr.betclient.model.event.CountryWithCompetitions;
 import gr.betclient.model.event.Event;
+import gr.betclient.model.event.League;
 import gr.betclient.model.user.User;
 import gr.betclient.model.user.UserBet;
 import gr.betclient.pager.NonSwipeableViewPager;
+import gr.betclient.util.DateUtils;
 import gr.betclient.util.EventUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -56,9 +55,9 @@ implements AsyncHolder{
 	/**
 	 * All the competitions that {@link Event}s have been fetched for.
 	 */
-	Map<Integer, Competition> competitionsMap = new HashMap<Integer, Competition>();
+	Map<Integer, League> leaguesMap = new HashMap<Integer, League>();
 	
-	Map<Integer, Competition> competitionsWithUpcomingEventsMap = new HashMap<Integer, Competition>();
+	Map<Integer, League> leaguesWithUpcomingEventsMap = new HashMap<Integer, League>();
 	
 	/**
 	 * All the {@link Event}s that have {@link Event#getMatchLive()} = '1'.
@@ -83,7 +82,7 @@ implements AsyncHolder{
     	final AsyncHolder holder = this;
     	TimerTask task = new TimerTask() {
 	        public void run() {
-	        	new AsyncGetCountriesWithCompetitions(holder).execute();
+	        	new AsyncGetLeagues(holder).execute();
 	        }
 	    };
 	    Timer timer = new Timer("Timer");
@@ -96,7 +95,7 @@ implements AsyncHolder{
 
         
         new AsyncGetLeaderBoard(holder).execute();
-        new AsyncGetCountriesWithCompetitions(holder).execute();
+        new AsyncGetLeagues(holder).execute();
         
         purchaseHolder = new PurchaseHolder(this);
         
@@ -113,7 +112,7 @@ implements AsyncHolder{
     @SuppressWarnings("deprecation")
 	private void setupPager() {
         mPager = (NonSwipeableViewPager) findViewById(R.id.pager);
-        mPager.setOffscreenPageLimit(2);
+       // mPager.setOffscreenPageLimit(2);
         mPager.setAdapter(new BottomPagerAdapter(getSupportFragmentManager(), PAGER_SIZE));
         mPager.setOffscreenPageLimit(4);
         setBottomButtons(mPager);
@@ -171,39 +170,59 @@ implements AsyncHolder{
         super.onResume();
     }
     
+    /**
+     * Clear the competitions, liveEvents upcoming events.
+     * Re-enter with the ones received.
+     * We ALWAYS have  to keep the same object reference for our adapters to work.
+     */
     @SuppressWarnings("unchecked")
 	@Override
 	public void onAsyncEventsFinished(List<? extends Serializable> objectList) {
-		competitionsMap.clear();
+		leaguesMap.clear();
 		liveEvents.clear();
-		competitionsWithUpcomingEventsMap.clear();
+		leaguesWithUpcomingEventsMap.clear();
 		
-		List<Competition> competitions = new ArrayList<Competition>();
-		for (CountryWithCompetitions countryWithComp : (List<CountryWithCompetitions>) objectList) {
-			List<Competition> competitions2 = countryWithComp.getCompetitions();
-			for (Competition competition : competitions2) {
-				List<Event> events = competition.getEvents();
-				if (events.size() > 0) {
-					competitions.add(competition);
+		List<League> leagues = new ArrayList<League>();
+			for (League league : (List<League>) objectList) {
+				List<Event> events = league.getEvents();
+					leagues.add(league);
 					for (Event event : events) {
-						if (Event.LIVE_INDICATION.equals(event.getMatchLive())) {
+						if (event.isLive()) {
 							liveEvents.add(event);
 						}
 					}
-				}
 			}
+		
+		for (int i=0; i < leagues.size(); i++) {
+			leaguesMap.put(i, leagues.get(i));
 		}
 		
-		for (int i=0; i < competitions.size(); i++) {
-			competitionsMap.put(i, competitions.get(i));
+		for (Map.Entry<Integer, League> entry : leaguesMap.entrySet()) {
+    		leaguesWithUpcomingEventsMap.put(entry.getKey(), League.copyOf(entry.getValue()));
 		}
 		
-		for (Map.Entry<Integer, Competition> entry : competitionsMap.entrySet()) {
-    		competitionsWithUpcomingEventsMap.put(entry.getKey(), Competition.copyOf(entry.getValue()));
+		filterUpcoming(leaguesWithUpcomingEventsMap);
+		
+//		Map<String, Map<Integer, League>> competitionsByDate = splitEventsByDate(leaguesMap);
+		
+		updateFragments();
+		
+		
+	}
+
+	Map<String, Map<Integer, League>> splitEventsByDate(
+			Map<Integer, League> competitionsMap2) {
+		
+		Map<String, Map<Integer, League>> splitEventsByDate = new HashMap<String, Map<Integer,League>>();
+		for (int i=-3; i<3; i++){
+			splitEventsByDate.put(DateUtils.getDate(i), new HashMap<Integer, League>());
 		}
 		
-		filterUpcoming(competitionsWithUpcomingEventsMap);
 		
+		return null;
+	}
+
+	private void updateFragments() {
 		FrgAllEvents frgEvents = (FrgAllEvents)((BottomPagerAdapter) mPager.getAdapter()).getItem(0);
 		frgEvents.updateEvents();
 		
@@ -218,9 +237,9 @@ implements AsyncHolder{
 	}
 
 	void filterUpcoming(
-			Map<Integer, Competition> competitionsWithUpcomingEventsMap2) {
+			Map<Integer, League> competitionsWithUpcomingEventsMap2) {
 		((BetClientApplication)getApplication()).getAllEventsMap().clear();
-		for (Map.Entry<Integer, Competition> entry: new HashMap<Integer, Competition>(competitionsWithUpcomingEventsMap2).entrySet()){
+		for (Map.Entry<Integer, League> entry: new HashMap<Integer, League>(competitionsWithUpcomingEventsMap2).entrySet()){
 			List<Event> events = entry.getValue().getEvents();
 			for (Event event : new ArrayList<Event>(events)){
 				((BetClientApplication)getApplication()).getAllEventsMap().put(event.getMatchId(), event);
@@ -236,6 +255,7 @@ implements AsyncHolder{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onAsyncLeaderboardFinished(
 			List<? extends Serializable> objectList) {
@@ -253,16 +273,16 @@ implements AsyncHolder{
 		
 	}
 
-	public Map<Integer, Competition> getCompetitionsMap() {
-		return competitionsMap;
+	public Map<Integer, League> getCompetitionsMap() {
+		return leaguesMap;
 	}
     
     public List<Event> getLiveEvents() {
 		return liveEvents;
 	}
     
-    public Map<Integer, Competition> getCompetitionsWithUpcomingEventsMap() {
-		return competitionsWithUpcomingEventsMap;
+    public Map<Integer, League> getCompetitionsWithUpcomingEventsMap() {
+		return leaguesWithUpcomingEventsMap;
 	}
 
 	public List<User> getLeaderboardUsers() {
@@ -300,6 +320,12 @@ implements AsyncHolder{
 		frgMyBets.updateUserBets();
 		Toast.makeText(this, userBet.getMongoUserId(), Toast.LENGTH_LONG).show();
 	}
-
+	
+	@Override
+	public void onAsyncCreateUserSuccess(User user) {
+		FrgMyBets frgMyBets = (FrgMyBets)((BottomPagerAdapter) mPager.getAdapter()).getItem(4);
+		frgMyBets.onUserCreated(user);
+		Toast.makeText(this, "Welcome " + user.getUsername(), Toast.LENGTH_LONG).show();
+	}
     
 }

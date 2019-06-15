@@ -3,7 +3,7 @@ package gr.betclient.adapter;
 import gr.betclient.R;
 import gr.betclient.adapter.viewholder.CompetitionViewHolder;
 import gr.betclient.adapter.viewholder.LiveEventViewHolder;
-import gr.betclient.model.event.Competition;
+import gr.betclient.model.event.League;
 import gr.betclient.model.event.Event;
 
 import java.util.List;
@@ -20,10 +20,10 @@ import android.widget.TextView;
 
 public class CompetitionsExpandableAdapterItem extends BaseExpandableListAdapter {
     private Activity activity;
-    private Map<Integer, Competition> parentItems;
+    private Map<Integer, League> parentItems;
     private LayoutInflater inflater;
 
-    public CompetitionsExpandableAdapterItem(Map<Integer, Competition> parentItems, Activity activity) {
+    public CompetitionsExpandableAdapterItem(Map<Integer, League> parentItems, Activity activity) {
         this.parentItems = parentItems;
         this.activity = activity;
         this.inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,7 +70,7 @@ public class CompetitionsExpandableAdapterItem extends BaseExpandableListAdapter
             holder = (CompetitionViewHolder) convertView.getTag();
 
         }
-        Competition current = parentItems.get(groupPosition);
+        League current = parentItems.get(groupPosition);
         holder.getCountryWithLeagueName().setText(current.getCountryName() +  ": "+current.getLeagueName());
         holder.getNumberOfEvents().setText("[" + current.getEvents().size() +"]");
     

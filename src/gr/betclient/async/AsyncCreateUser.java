@@ -17,10 +17,16 @@ public class AsyncCreateUser extends AsyncTask<Void, Void, User> {
 	User user;
 	
     AsyncUserHolder asyncUserHolder;
-
+    
+    AsyncHolder asyncHolder;
+	
     public AsyncCreateUser(User user, AsyncUserHolder asyncUserHolder) {
         this.user = user;
         this.asyncUserHolder = asyncUserHolder;
+    }
+
+    public void setAsyncHolder(AsyncHolder asyncHolder){
+    	this.asyncHolder = asyncHolder;
     }
 
     @Override
@@ -41,5 +47,6 @@ public class AsyncCreateUser extends AsyncTask<Void, Void, User> {
 	@Override
     protected void onPostExecute(User user) {
     	asyncUserHolder.onAsyncGetUserFinished(user);
+    	asyncHolder.onAsyncCreateUserSuccess(user);
     }
 }

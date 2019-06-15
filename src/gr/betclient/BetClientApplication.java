@@ -1,4 +1,4 @@
-package gr.betclient.act;
+package gr.betclient;
 
 import gr.betclient.async.AsyncGetUser;
 import gr.betclient.async.AsyncUserHolder;
@@ -34,14 +34,6 @@ implements AsyncUserHolder {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
-		
-		
-//		final SharedPreferences app_preferences = getSharedPreferences(AppConstants.PREFS_NAME, Context.MODE_PRIVATE);
-//		SharedPreferences.Editor editor = app_preferences.edit();
-//        editor.putString(AppConstants.PREFS_USER, null);
-//        editor.apply();
-		
 		
 		
 		final SharedPreferences app_preferences = getSharedPreferences(AppConstants.PREFS_NAME, Context.MODE_PRIVATE);
@@ -81,6 +73,7 @@ implements AsyncUserHolder {
 
 	@Override
 	public void onAsyncGetUserFinished(User user) {
+		
 		this.user = user;
 		for (UserBet userBet : user.getUserBets()) {
 			boolean betExists = false;
@@ -101,6 +94,9 @@ implements AsyncUserHolder {
 		SharedPreferences.Editor editor = app_preferences.edit();
         editor.putString(AppConstants.PREFS_USER, new Gson().toJson(user));
         editor.apply();
+        
+
+        
 	}
 
 }

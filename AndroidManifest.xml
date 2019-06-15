@@ -14,13 +14,13 @@
         android:targetSdkVersion="26" />
 
     <application
-        android:name="gr.betclient.act.BetClientApplication"
+        android:name=".BetClientApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="gr.betclient.act.ActParent"
+            android:name="gr.betclient.ActParent"
             android:label="@string/app_name" >
            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +29,6 @@
             </intent-filter>  
         </activity>
         
-         <activity
-            android:name=".act.ActRegisterUser"
-            android:label="@string/app_name" >
-           
-        </activity>
     </application>
 
 </manifest>

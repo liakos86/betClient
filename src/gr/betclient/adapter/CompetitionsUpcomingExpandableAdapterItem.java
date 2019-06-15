@@ -3,7 +3,7 @@ package gr.betclient.adapter;
 import gr.betclient.R;
 import gr.betclient.adapter.viewholder.UpcomingEventViewHolder;
 import gr.betclient.frg.FrgUpcomingEvents;
-import gr.betclient.model.event.Competition;
+import gr.betclient.model.event.League;
 import gr.betclient.model.event.Event;
 import gr.betclient.model.user.UserPrediction;
 
@@ -22,9 +22,9 @@ import android.widget.TextView;
 
 public class CompetitionsUpcomingExpandableAdapterItem extends BaseExpandableListAdapter {
     private Fragment fragment;
-    private Map<Integer, Competition> parentItems;
+    private Map<Integer, League> parentItems;
 
-    public CompetitionsUpcomingExpandableAdapterItem(Map<Integer, Competition> parentItems, Fragment fragment) {
+    public CompetitionsUpcomingExpandableAdapterItem(Map<Integer, League> parentItems, Fragment fragment) {
         this.parentItems = parentItems;
         this.fragment = fragment;
     }
@@ -102,7 +102,7 @@ public class CompetitionsUpcomingExpandableAdapterItem extends BaseExpandableLis
             holder = (CompetitionViewHolder) convertView.getTag();
 
         }
-        Competition current = parentItems.get(groupPosition);
+        League current = parentItems.get(groupPosition);
         holder.countryWithLeagueName.setText(current.getCountryName() +  ": "+current.getLeagueName());
         holder.numberOfEvents.setText("[" + current.getEvents().size() +"]");
     

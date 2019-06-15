@@ -2,39 +2,54 @@
 package gr.betclient.model.event;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Event {
-	
+public class Event
+implements Serializable{
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final String LIVE_INDICATION = "1";
 
-    @SerializedName("match_id")
+	@SerializedName("match_id")
     @Expose
     private String matchId;
+    
     @SerializedName("country_id")
     @Expose
     private String countryId;
+    
     @SerializedName("country_name")
     @Expose
     private String countryName;
+    
     @SerializedName("league_id")
     @Expose
     private String leagueId;
+    
     @SerializedName("league_name")
     @Expose
     private String leagueName;
+    
     @SerializedName("match_date")
     @Expose
     private String matchDate;
+    
     @SerializedName("match_status")
     @Expose
     private String matchStatus;
+    
     @SerializedName("match_time")
     @Expose
     private String matchTime;
+    
     @SerializedName("match_hometeam_name")
     @Expose
     private String matchHometeamName;
@@ -88,7 +103,7 @@ public class Event {
     private List<Statistic> statistics = null;
     
     private Odd odd;
-
+    
     public String getMatchId() {
         return matchId;
     }
@@ -136,8 +151,8 @@ public class Event {
     public void setMatchDate(String matchDate) {
         this.matchDate = matchDate;
     }
-
-    public String getMatchStatus() {
+    
+	public String getMatchStatus() {
         return matchStatus;
     }
 
@@ -295,6 +310,24 @@ public class Event {
     
 	public void setOdd(Odd odd) {
 		this.odd = odd;
+	}
+
+	public String getMatchDateTime() {
+		return this.getMatchDate() + "T" + this.getMatchTime()+ ":00.000+00:00";
+	}
+
+	public boolean isLive() {
+		boolean liveIndication = LIVE_INDICATION.equals(this.getMatchLive());
+		if (liveIndication){
+			return true;
+		}
+		
+		try{
+			Integer.parseInt(this.getMatchStatus());
+		}catch(NumberFormatException e){
+			return false;
+		}
+		return true;
 	}
 
 }
